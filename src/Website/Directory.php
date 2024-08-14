@@ -90,14 +90,14 @@ class Directory implements Filesystem
             $path = "$prefix$path";
         }
 
-        // if ($local && $this->isLocal()) {
-        //     $config = $this->filesystem->getConfig();
-        //     $path = sprintf(
-        //         "%s/%s",
-        //         $config['root'],
-        //         $path
-        //     );
-        // }
+        if ($this->isLocal()) {
+            $config = $this->filesystem->getConfig();
+            $path = sprintf(
+                "%s/%s",
+                $config['root'],
+                $path
+            );
+        }
 
         return $path;
     }
@@ -376,10 +376,10 @@ class Directory implements Filesystem
     /**
      * @return bool
      */
-    // public function isLocal(): bool
-    // {
-    //     return $this->filesystem->getAdapter() instanceof LocalFilesystemAdapter;
-    // }
+    public function isLocal(): bool
+    {
+        return $this->filesystem->getAdapter() instanceof LocalFilesystemAdapter;
+    }
 
     public function __call($name, $arguments)
     {
